@@ -1,0 +1,18 @@
+{"message":" is required","level":"error"}
+{"message":"Invalid rating","level":"error"}
+{"message":"rating is required","level":"error"}
+{"message":"Invalid rating","level":"error"}
+{"message":"title is required","level":"error"}
+{"message":"Bookmark with id 47e57ca9-4d38-4674-abc3-929e01053a0a created","level":"info"}
+{"message":"title is required","level":"error"}
+{"message":"description is required","level":"error"}
+{"message":"url is required","level":"error"}
+{"message":"Invalid url","level":"error"}
+{"message":"description is required","level":"error"}
+{"message":"Bookmark with id 06c7a0b4-9c53-4063-852d-68b1757fe404 created","level":"info"}
+{"message":"Invalid rating","level":"error"}
+{"message":"Invalid rating","level":"error"}
+{"message":"title is required","level":"error"}
+{"message":"Bookmark with id f43efdc6-4ca5-4d24-905a-f9302d4b85a7 created","level":"info"}
+{"message":"Title is required","level":"error"}
+{"message":"Description is required","level":"error"}
