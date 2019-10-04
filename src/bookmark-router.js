@@ -1,8 +1,10 @@
+require('dotenv').config()
 const express = require('express');
 const uuid = require('uuid/v4');
 const logger = require('./logger');
 const store = require('./store');
 const validUrl = require('valid-url');
+const BookmarksService = require('./bookmarks-service');
 
 const bookmarkRouter = express.Router();
 const bodyParser = express.json();
@@ -10,7 +12,11 @@ const bodyParser = express.json();
 bookmarkRouter
   .route('/bookmarks')
   .get((req, res) => {
-    res.json(store)
+    const knexInstance = req.app.get('db')
+    BookmarksService.getAllBookmarks(knexInstance)
+      .then(bookmarks => {
+        res.json(bookmarks)
+      })
   })
   .post(bodyParser, (req, res) => {
     const { title, url, description, rating } = req.body;
@@ -48,16 +54,18 @@ bookmarkRouter
 
 bookmarkRouter
   .route('/bookmarks/:id')
-  .get((req, res) => {
-    const { id } = req.params;
-    console.log(id)
-    const bookmark = store.find(b => b.id == id)
-    
-    if(!bookmark) {
-      logger.error(`Bookmark with id ${id} not found`)
-      return res.status(404).send('Bookmark not found')
-    }
-    res.json(bookmark)
+  .get((req, res, next) => {
+    const { id } = req.params
+    BookmarksService.getById(req.app.get('db'), id)
+      .then(bookmark => {
+        if(!bookmark) {
+          logger.error(`Bookmark with id ${id} not found`)
+          return res.status(404).json({
+            error: {message: 'Bookmark not found'}})
+      }
+      res.json(bookmark)
+    })
+    .catch(next)
   })
   .delete((req, res) => {
     const { id } = req.params;
